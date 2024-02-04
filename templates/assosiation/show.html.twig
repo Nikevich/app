@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Assosiation{% endblock %}
+
+{% block body %}
+    <h1>Assosiation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ assosiation.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ assosiation.name }}</td>
+            </tr>
+            <tr>
+                <th>Create_date</th>
+                <td>{{ assosiation.createDate ? assosiation.createDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ assosiation.description }}</td>
+            </tr>
+            <tr>
+                <th>Logo</th>
+                <td>{{ assosiation.logo }}</td>
+            </tr>
+            <tr>
+                <th>Archived</th>
+                <td>{{ assosiation.archived ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ assosiation.type }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_assosiation_index') }}">back to list</a>
+
+    <a href="{{ path('app_assosiation_edit', {'id': assosiation.id}) }}">edit</a>
+
+    {{ include('assosiation/_delete_form.html.twig') }}
+{% endblock %}
