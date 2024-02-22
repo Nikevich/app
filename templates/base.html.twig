@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link href="{{ asset('bootstrap/css/bootstrap.css') }}" type="text/css" rel="stylesheet">
-        <link href="{{ asset('bootstrap-icons/font/bootstrap-icons.css') }}" type="text/css" rel="stylesheet">
+        {# <link href="{{ asset('bootstrap/css/bootstrap.css') }}" type="text/css" rel="stylesheet">
+        <link href="{{ asset('bootstrap-icons/font/bootstrap-icons.css') }}" type="text/css" rel="stylesheet"> #}
+        {# Подключение CSS #}
+        <link href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('node_modules/bootstrap-icons/font/bootstrap-icons.css') }}" rel="stylesheet" type="text/css">
+
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
@@ -13,9 +17,13 @@
         {% endblock %}
     </head>
     <body>
-        <style src="{{ asset('bootstrap/js/bootstrap.js') }}"></style>
+
+        {# Подключение JS #}
+        <script src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+
         <div style="width: 70%; margin: 0 auto;">
         {% block body %}{% endblock %}
         </div>
+        
     </body>
 </html>

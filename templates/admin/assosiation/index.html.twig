@@ -3,7 +3,14 @@
 {% block title %}Объединения{% endblock %}
 
 {% block body %}
-    <h1>Список объединений</h1>
+
+   <nav class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><h1>Список объединений</h1></a>
+      <a class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Архивированные объединения</a>
+   </nav>
+   <div class="tab-content" id="nav-tabContent">
+              
+   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
     <a href="{{ path('app_admin_assosiation_new') }}" class="btn btn-success mb-3">Создать новое</a>
 
@@ -40,5 +47,44 @@
             {% endfor %}
          </tbody>
       </table>
+   </div>
 
+   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+   <table class="table table-striped">
+         <thead>
+            <tr>
+               <th scope="col">№</th>
+               <th scope="col">Логотип</th> 
+               <th scope="col">Название</th> 
+               <th scope="col">Дата создания</th>
+               <th scope="col">Описание</th>
+               <th scope="col">Тип</th>
+               <th scope="col"></th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for assosiation in archived_assosiations %}
+               <tr>
+                  <th scope="row">{{ loop.index }}</th>
+                  <td>{{ assosiation.logo }}</td>
+                  <td>{{ assosiation.name }}</td>
+                  <td>{{ assosiation.createDate ? assosiation.createDate|date('d-m-Y') : '-' }}</td>
+                  <td>{{ assosiation.description ? assosiation.description : 'Нет описания' }}</td>
+                  <td>{{ assosiation.type }}</td>
+                  <td>
+                    <a href="{{ path('app_admin_assosiation_show', {'id': assosiation.id}) }}" class="btn btn-outline-primary"><i class="bi bi-file-text"></i></a>
+                    <a href="{{ path('app_admin_assosiation_edit', {'id': assosiation.id}) }}" class="btn btn-outline-primary"><i class="bi bi-gear"></i></a>
+                  </td>
+               </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">Записи не найдены</td>
+                </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+
+   </div>
+   </div>
 {% endblock %}

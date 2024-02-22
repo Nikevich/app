@@ -24,7 +24,12 @@ class AssosiationController extends AbstractController
     public function index(AssosiationRepository $assosiationRepository): Response
     {
         return $this->render('admin/assosiation/index.html.twig', [
-            'assosiations' => $assosiationRepository->findAll(),
+            'assosiations' => $assosiationRepository->findBy([
+                'archived' => false,
+            ]),
+            'archived_assosiations' => $assosiationRepository->findBy([
+                'archived' => true,
+            ]),
         ]);
     }
 
