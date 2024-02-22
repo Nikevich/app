@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset('assosiation/new.css') }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block title %}New Assosiation{% endblock %}
+
+{% block body %}
+    <h1>Create new Assosiation</h1>
+
+    {{ include('admin/assosiation/_form.html.twig') }}
+
+    <div class="input-group mx-auto" style="max-width: 400px;">
+        <a href="{{ path('app_admin_assosiation_index') }}" class="btn btn-outline-secondary mb-3">К списку</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Объединения{% endblock %}
+
+{% block body %}
+    <h1>Список объединений</h1>
+
+    <a href="{{ path('app_admin_assosiation_new') }}" class="btn btn-success mb-3">Создать новое</a>
+
+    <table class="table table-striped">
+         <thead>
+            <tr>
+               <th scope="col">№</th>
+               <th scope="col">Логотип</th> 
+               <th scope="col">Название</th> 
+               <th scope="col">Дата создания</th>
+               <th scope="col">Описание</th>
+               <th scope="col">Тип</th>
+               <th scope="col"></th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for assosiation in assosiations %}
+               <tr>
+                  <th scope="row">{{ loop.index }}</th>
+                  <td>{{ assosiation.logo }}</td>
+                  <td>{{ assosiation.name }}</td>
+                  <td>{{ assosiation.createDate ? assosiation.createDate|date('d-m-Y') : '-' }}</td>
+                  <td>{{ assosiation.description ? assosiation.description : 'Нет описания' }}</td>
+                  <td>{{ assosiation.type }}</td>
+                  <td>
+                    <a href="{{ path('app_admin_assosiation_show', {'id': assosiation.id}) }}" class="btn btn-outline-primary"><i class="bi bi-file-text"></i></a>
+                    <a href="{{ path('app_admin_assosiation_edit', {'id': assosiation.id}) }}" class="btn btn-outline-primary"><i class="bi bi-gear"></i></a>
+                  </td>
+               </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">Записи не найдены</td>
+                </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+
+{% endblock %}

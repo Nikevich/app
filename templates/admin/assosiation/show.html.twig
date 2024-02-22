@@ -38,9 +38,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_assosiation_index') }}">back to list</a>
+    <a href="{{ path('app_admin_assosiation_index') }}" class="btn btn-outline-secondary">К списку</a>
 
-    <a href="{{ path('app_assosiation_edit', {'id': assosiation.id}) }}">edit</a>
+    <a href="{{ path('app_admin_assosiation_edit', {'id': assosiation.id}) }}" class="btn btn-outline-warning">Редактировать</a>
 
-    {{ include('assosiation/_delete_form.html.twig') }}
+    {{ include('admin/assosiation/_delete_form.html.twig') }}
 {% endblock %}
