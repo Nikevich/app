@@ -5,8 +5,12 @@
 {% block body %}
 
    <nav class="nav nav-tabs" id="nav-tab" role="tablist">
-      <a class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><h1>Список объединений</h1></a>
-      <a class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Архивированные объединения</a>
+      <a class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+         <div class="text-center" style="width: 500px;"><h2>Список объединений</h2></div>
+      </a>
+      <a class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
+         <div class="text-center" style="width: 500px;"><h2>В архиве</h2></div>
+      </a>
    </nav>
    <div class="tab-content" id="nav-tabContent">
               
@@ -30,7 +34,7 @@
             {% for assosiation in assosiations %}
                <tr>
                   <th scope="row">{{ loop.index }}</th>
-                  <td>{{ assosiation.logo }}</td>
+                  <td><img src="{{ asset('images/assosiation/img-2x1.png') }}" class="img-thumbnail rounded-circle" style="width: 80px; height: 80px; object-fit: cover;"></td>
                   <td>{{ assosiation.name }}</td>
                   <td>{{ assosiation.createDate ? assosiation.createDate|date('d-m-Y') : '-' }}</td>
                   <td>{{ assosiation.description ? assosiation.description : 'Нет описания' }}</td>

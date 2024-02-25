@@ -12,7 +12,7 @@ use App\Form\AssosiationType;
 use App\Repository\AssosiationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\{TextType, ChoiceType, CheckboxType, TextareaType};
+use Symfony\Component\Form\Extension\Core\Type\{TextType, ChoiceType, CheckboxType, TextareaType, FileType};
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,13 +23,23 @@ class AssosiationController extends AbstractController
     #[Route('/', name: 'app_admin_assosiation_index', methods: ['GET'])]
     public function index(AssosiationRepository $assosiationRepository): Response
     {
+        // Достаем объединения отдельно архивированные и не архивированные
+        $assosiations = $assosiationRepository->findBy([
+            'archived' => false,
+        ]);
+        $archived_assosiations = $assosiationRepository->findBy([
+            'archived' => true,
+        ]);
+
+        // foreach ($assosiations as $assosiation) {
+        //     $assosiation->setLogo(base64_encode($assosiation->getLogo()));
+        // }
+        // foreach ($archived_assosiations as $assosiation) {
+        //     $assosiation->setLogo(base64_encode($assosiation->getLogo()));
+        // }
         return $this->render('admin/assosiation/index.html.twig', [
-            'assosiations' => $assosiationRepository->findBy([
-                'archived' => false,
-            ]),
-            'archived_assosiations' => $assosiationRepository->findBy([
-                'archived' => true,
-            ]),
+            'assosiations' => $assosiations,
+            'archived_assosiations' => $archived_assosiations
         ]);
     }
 
@@ -38,6 +48,7 @@ class AssosiationController extends AbstractController
     {
         $assosiation = new Assosiation();
         $form = $this->createFormBuilder($assosiation)
+            ->add('logo', FileType::class)
             ->add('name', TextType::class, [
                 'attr' => [
                     'class' => 'form-control']])
@@ -60,6 +71,7 @@ class AssosiationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $assosiation->setCreateDate(new \DateTime());
+            $assosiation->setLogo(base64_decode($assosiation->getLogo()));
             if (!$assosiation->isArchived()) $assosiation->setArchived(false);
             $entityManager->persist($assosiation);
             $entityManager->flush();
